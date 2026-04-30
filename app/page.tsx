@@ -50,66 +50,84 @@ Broadway will see you.`
   };
 
   return (
-    <main style={{
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-    
-      color: "white",
-      padding: "20px",
-      textAlign: "center",
-      fontFamily: "Georgia, serif"
-    }}>
-   <div style={{
-  position: "absolute",
-  inset: 0,
-  zIndex: -3,
-  background: `
-    url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30') left center / cover no-repeat,
-    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') right center / cover no-repeat
-  `,
-  filter: "brightness(0.4) contrast(1.2) saturate(1.2)"
-  mixBlendMode: "screen",
-}} />
-<div style={{
-  position: "absolute",
-  inset: 0,
-  zIndex: -2,
-  background: "radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.92))"
-}} />
-      
-      <h1 style={{
-        fontSize: "42px",
-        textShadow: "0 0 20px pink"
-      }}>
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        padding: "20px",
+        textAlign: "center",
+        fontFamily: "Georgia, serif",
+        position: "relative",
+        overflow: "hidden"
+      }}
+    >
+      {/* BACKGROUND SPLIT */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: -3,
+          background: `
+            url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30') left center / cover no-repeat,
+            url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') right center / cover no-repeat
+          `,
+          filter: "brightness(0.4) contrast(1.2) saturate(1.2)",
+          mixBlendMode: "screen"
+        }}
+      />
+
+      {/* CINEMA OVERLAY */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: -2,
+          background:
+            "radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.92))"
+        }}
+      />
+
+      {/* TITLE */}
+      <h1
+        style={{
+          fontSize: "42px",
+          textShadow: "0 0 20px pink"
+        }}
+      >
         For Laylah ✨
       </h1>
 
-      <div style={{
-        maxWidth: "600px",
-        background: "rgba(255,255,255,0.05)",
-        padding: "25px",
-        borderRadius: "20px",
-        marginTop: "20px"
-      }}>
+      {/* CARD */}
+      <div
+        style={{
+          maxWidth: "600px",
+          background: "rgba(255,255,255,0.05)",
+          padding: "25px",
+          borderRadius: "20px",
+          marginTop: "20px",
+          backdropFilter: "blur(10px)"
+        }}
+      >
         <h2>{content.type}</h2>
         <p style={{ whiteSpace: "pre-line", fontSize: "18px" }}>
           {content.text}
         </p>
       </div>
 
+      {/* BUTTONS */}
       <div style={{ marginTop: "20px" }}>
         <button onClick={nextMessage} style={{ marginRight: "10px" }}>
           Next Message
         </button>
 
-        <button onClick={saveFavorite}>
-          ❤️ Save
-        </button>
+        <button onClick={saveFavorite}>❤️ Save</button>
       </div>
 
+      {/* FAVORITES */}
       {favorites.length > 0 && (
         <div style={{ marginTop: "30px", maxWidth: "600px" }}>
           <h3>Favorites 💖</h3>
@@ -120,7 +138,6 @@ Broadway will see you.`
           ))}
         </div>
       )}
-
     </main>
   );
 }
