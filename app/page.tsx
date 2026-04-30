@@ -1,84 +1,109 @@
 "use client";
 
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
 export default function Page() {
+  const quotes = [
+    "Your voice is already strong enough to move a room—Broadway is just the next stage.",
+    "Every rehearsal builds your future success.",
+    "Discipline will take you to Broadway.",
+    "You are already becoming greatness.",
+    "Your story deserves the brightest lights."
+  ];
+
+  const letters = [
+`Dear Laylah,
+
+Keep going. Broadway is not a dream—it is a destination.
+
+With belief in you.`,
+
+`Dear Laylah,
+
+You are closer than you think.
+
+Stay brave.`,
+
+`Dear Laylah,
+
+Your persistence is your power.
+
+Broadway will see you.`
+  ];
+
+  const [index, setIndex] = useState(0);
+  const [favorites, setFavorites] = useState<string[]>([]);
+
   const content = useMemo(() => {
-    const quotes = [
-      "Your voice is already strong enough to move a room—Broadway is just the next stage.",
-      "Every rehearsal, every page, every breath on stage is building your future success.",
-      "Talent brought you here. Discipline will take you to Broadway.",
-      "You are not becoming someone great—you already are, and you're refining it.",
-      "Your story deserves to be seen under the brightest lights in the world."
-    ];
-
-    const letters = [
-`Dear Laylah,
-
-There will be days when the stage feels far away. But every great performance begins long before the spotlight.
-
-Keep going. Broadway is not a dream that chooses only a few—it is a destination reached by those who refuse to stop.
-
-With belief in you,
-Your future`,
-
-`Dear Laylah,
-
-If I could show you what I see in you, you would never doubt again. Every rehearsal is a step closer to the stage you dream of.
-
-Stay consistent. Stay brave.
-
-You are closer than you think.`,
-
-`Dear Laylah,
-
-Your journey is not about perfection—it is about persistence.
-
-Even on quiet days, your passion is building something extraordinary.
-
-Broadway will recognize what you are becoming.`
-    ];
-
-    const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
-    const isQuote = day % 2 === 0;
-
+    const isQuote = index % 2 === 0;
     return isQuote
-      ? { type: "Daily Quote", text: quotes[day % quotes.length] }
-      : { type: "Daily Letter", text: letters[day % letters.length] };
-  }, []);
+      ? { type: "Daily Quote", text: quotes[index % quotes.length] }
+      : { type: "Daily Letter", text: letters[index % letters.length] };
+  }, [index]);
+
+  const nextMessage = () => {
+    setIndex(index + 1);
+  };
+
+  const saveFavorite = () => {
+    setFavorites([...favorites, content.text]);
+  };
 
   return (
     <main style={{
       minHeight: "100vh",
       display: "flex",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      background: "linear-gradient(to bottom right, black, purple, black)",
+      background: "radial-gradient(circle at top, #1a001f, black)",
       color: "white",
-      padding: "30px",
+      padding: "20px",
       textAlign: "center",
-      fontFamily: "Arial"
+      fontFamily: "Georgia, serif"
     }}>
-      <div style={{ maxWidth: "600px" }}>
-        <h1 style={{ fontSize: "40px", marginBottom: "20px" }}>
-          For Laylah ✨
-        </h1>
+      
+      <h1 style={{
+        fontSize: "42px",
+        textShadow: "0 0 20px pink"
+      }}>
+        For Laylah ✨
+      </h1>
 
-        <div style={{
-          background: "rgba(255,255,255,0.1)",
-          padding: "20px",
-          borderRadius: "15px"
-        }}>
-          <h2>{content.type}</h2>
-          <p style={{ whiteSpace: "pre-line", fontSize: "18px" }}>
-            {content.text}
-          </p>
-        </div>
-
-        <p style={{ marginTop: "20px", opacity: 0.7 }}>
-          A new message appears every day — until Broadway.
+      <div style={{
+        maxWidth: "600px",
+        background: "rgba(255,255,255,0.05)",
+        padding: "25px",
+        borderRadius: "20px",
+        marginTop: "20px"
+      }}>
+        <h2>{content.type}</h2>
+        <p style={{ whiteSpace: "pre-line", fontSize: "18px" }}>
+          {content.text}
         </p>
       </div>
+
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={nextMessage} style={{ marginRight: "10px" }}>
+          Next Message
+        </button>
+
+        <button onClick={saveFavorite}>
+          ❤️ Save
+        </button>
+      </div>
+
+      {favorites.length > 0 && (
+        <div style={{ marginTop: "30px", maxWidth: "600px" }}>
+          <h3>Favorites 💖</h3>
+          {favorites.map((fav, i) => (
+            <p key={i} style={{ opacity: 0.8 }}>
+              {fav}
+            </p>
+          ))}
+        </div>
+      )}
+
     </main>
   );
 }
