@@ -62,15 +62,16 @@ Broadway will see you.`
       textAlign: "center",
       fontFamily: "Georgia, serif"
     }}>
-    <div style={{
+   <div style={{
   position: "absolute",
   inset: 0,
   zIndex: -3,
   background: `
-    url('https://images.unsplash.com/photo-1520975922284-9d1b6d1f6a5b') left center / cover no-repeat,
-    url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') right center / cover no-repeat
+    url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30') left center / cover no-repeat,
+    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') right center / cover no-repeat
   `,
-  filter: "brightness(0.35) contrast(1.1) saturate(1.3)"
+  filter: "brightness(0.4) contrast(1.2) saturate(1.2)"
+  mixBlendMode: "screen",
 }} />
 <div style={{
   position: "absolute",
