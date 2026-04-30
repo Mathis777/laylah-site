@@ -56,12 +56,28 @@ Broadway will see you.`
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      background: "radial-gradient(circle at top, #1a001f, black)",
+    
       color: "white",
       padding: "20px",
       textAlign: "center",
       fontFamily: "Georgia, serif"
     }}>
+    <div style={{
+  position: "absolute",
+  inset: 0,
+  zIndex: -3,
+  background: `
+    url('https://images.unsplash.com/photo-1520975922284-9d1b6d1f6a5b') left center / cover no-repeat,
+    url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') right center / cover no-repeat
+  `,
+  filter: "brightness(0.35) contrast(1.1) saturate(1.3)"
+}} />
+<div style={{
+  position: "absolute",
+  inset: 0,
+  zIndex: -2,
+  background: "radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.92))"
+}} />
       
       <h1 style={{
         fontSize: "42px",
