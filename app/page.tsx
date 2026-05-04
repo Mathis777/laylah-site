@@ -31,17 +31,19 @@ Never forget that.`,
 
 `Dear Laylah,
 
-You are becoming the person your dreams recognize.`,
+You are becoming the person your dreams recognize.`
   ];
 
   const [index, setIndex] = useState(0);
   const [favorites, setFavorites] = useState<string[]>([]);
 
+  // 💾 LOAD
   useEffect(() => {
     const stored = localStorage.getItem("favorites");
     if (stored) setFavorites(JSON.parse(stored));
   }, []);
 
+  // 💾 SAVE
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
@@ -62,87 +64,134 @@ You are becoming the person your dreams recognize.`,
   }, [index]);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6 text-white">
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "20px",
+        color: "white",
+        fontFamily: "Georgia, serif",
+        position: "relative",
+        overflow: "hidden"
+      }}
+    >
+      {/* 💜 BROADWAY VIOLET BACKGROUND */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: -30,
+          background:
+            "radial-gradient(circle at top, #5a00a3 0%, #1a0033 45%, #070010 100%)"
+        }}
+      />
 
-      {/* 💜 BACKGROUND VIOLET */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2a003f] via-[#12001f] to-black -z-30" />
-
-      {/* ✨ LIGHT GLOW */}
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_center,rgba(180,80,255,0.25),transparent_60%)]" />
+      {/* ✨ GLOW */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: -20,
+          background:
+            "radial-gradient(circle at center, rgba(180,80,255,0.25), transparent 60%)"
+        }}
+      />
 
       {/* 🌟 PARTICLES */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(25)].map((_, i) => (
           <span
             key={i}
-            className="absolute w-1 h-1 bg-pink-300 rounded-full opacity-60 animate-pulse"
             style={{
+              position: "absolute",
+              width: "4px",
+              height: "4px",
+              background: "rgba(255, 180, 255, 0.7)",
+              borderRadius: "50%",
               top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`
+              left: `${Math.random() * 100}%`,
+              opacity: 0.6
             }}
           />
         ))}
       </div>
 
       {/* 🎬 TITLE */}
-      <div className="text-center mb-8">
-        <p className="text-pink-300 italic text-lg mb-2">For</p>
+      <div>
+        <p style={{ color: "#ffb3ff", fontStyle: "italic" }}>For</p>
 
-        <h1 className="text-6xl md:text-7xl font-bold tracking-widest text-yellow-300"
+        <h1
           style={{
-            textShadow: "0 0 10px #ffd36b, 0 0 20px #ffae00, 0 0 40px #ff7b00"
+            fontSize: "60px",
+            fontWeight: "bold",
+            letterSpacing: "4px",
+            color: "#ffd36b",
+            textShadow:
+              "0 0 10px #ffd36b, 0 0 20px #ffae00, 0 0 40px #ff7b00"
           }}
         >
           LAYLAH
         </h1>
 
-        <p className="mt-3 text-sm opacity-80 italic">
+        <p style={{ opacity: 0.8, fontSize: "14px" }}>
           Your dreams. Your stage. Your story.
         </p>
       </div>
 
       {/* 💎 CARD */}
-      <div className="w-full max-w-xl rounded-3xl p-[2px] bg-gradient-to-br from-pink-500/40 to-purple-500/40 shadow-[0_0_60px_rgba(180,100,255,0.25)]">
-        <div className="rounded-3xl bg-black/60 backdrop-blur-xl p-8 text-center">
+      <div
+        style={{
+          marginTop: "30px",
+          maxWidth: "600px",
+          width: "100%",
+          background: "rgba(0,0,0,0.6)",
+          padding: "25px",
+          borderRadius: "20px",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(255,255,255,0.1)"
+        }}
+      >
+        <h2 style={{ color: "#ffb3ff", marginBottom: "10px" }}>
+          {content.type}
+        </h2>
 
-          <h2 className="text-pink-300 mb-4 text-center">
-            {content.type}
-          </h2>
+        <p style={{ whiteSpace: "pre-line", fontSize: "18px" }}>
+          {content.text}
+        </p>
 
-          <p className="whitespace-pre-line leading-relaxed text-lg text-center">
-            {content.text}
-          </p>
-
-          <p className="mt-5 text-xs opacity-40 italic text-center text-pink-200">
-            always here for you ✨
-          </p>
-        </div>
+        <p style={{ marginTop: "15px", fontSize: "12px", opacity: 0.4 }}>
+          always here for you ✨
+        </p>
       </div>
 
       {/* 🔘 BUTTONS */}
-      <div className="flex gap-4 mt-8">
+      <div style={{ marginTop: "20px" }}>
         <button
           onClick={() => setIndex(index + 1)}
-          className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 shadow-lg hover:scale-105 transition"
+          style={{ marginRight: "10px" }}
         >
-          Next Message →
+          Next Message
         </button>
 
         <button
-          onClick={() => setFavorites([...favorites, content.text])}
-          className="px-6 py-3 rounded-full border border-pink-400 hover:bg-pink-500/20 transition"
+          onClick={() =>
+            setFavorites([...favorites, content.text])
+          }
         >
           ♡ Save
         </button>
       </div>
 
-      {/* ❤️ FAVORITES (CENTRÉ) */}
+      {/* ❤️ FAVORITES */}
       {favorites.length > 0 && (
-        <div className="mt-10 max-w-xl w-full text-center">
-          <h3 className="text-pink-300 text-lg mb-3">Favorites 💖</h3>
-
+        <div style={{ marginTop: "30px", maxWidth: "600px" }}>
+          <h3>Favorites 💖</h3>
           {favorites.map((fav, i) => (
-            <p key={i} className="opacity-80 text-sm mb-2 text-center">
+            <p key={i} style={{ opacity: 0.8, fontSize: "14px" }}>
               {fav}
             </p>
           ))}
@@ -150,10 +199,9 @@ You are becoming the person your dreams recognize.`,
       )}
 
       {/* 🌙 FOOTER */}
-      <p className="mt-8 text-xs opacity-40 text-center">
+      <p style={{ marginTop: "30px", fontSize: "12px", opacity: 0.4 }}>
         A new message appears every day ✨
       </p>
-
     </main>
   );
 }
