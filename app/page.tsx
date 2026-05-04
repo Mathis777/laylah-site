@@ -3,73 +3,119 @@
 import { useState, useMemo, useEffect } from "react";
 
 export default function Page() {
+
+  // 💬 QUOTES
   const quotes = [
-    "Your voice is already strong enough to move a room—Broadway is just the next stage.",
-    "Every rehearsal builds your future success.",
-    "Discipline will take you to Broadway.",
-    "You are already becoming greatness.",
-    "Your story deserves the brightest lights."
+    "You were made to shine under lights the world cannot ignore.",
+    "Every small step today builds your standing ovation tomorrow.",
+    "You don’t chase dreams—you embody them.",
+    "Broadway isn’t far. It’s forming with every effort you make.",
+    "Your courage is louder than your doubts.",
+    "The stage is waiting for your truth.",
+    "You are not late—you are preparing for something extraordinary.",
+    "One day, your name will be in lights—and it will feel natural.",
+    "Keep showing up. Magic happens there.",
+    "Your passion is already your ticket forward."
   ];
 
+  // 💌 LETTERS
   const letters = [
 `Dear Laylah,
 
-Every step you take today is a step closer to the stage you dream about.
+Even on quiet days, something beautiful is growing in you.
 
-The lights of Broadway are waiting for your name.
+You don’t always see it, but it’s there—getting stronger, clearer, closer.
 
-Keep going. Your future self is so proud of you already.`,
+And one day, everything will make sense.
 
-`Dear Laylah,
-
-You are closer than you think.
-
-Stay brave.`,
+Keep going. Always.`,
 
 `Dear Laylah,
 
-Your persistence is your power.
+I hope you never forget how special you are.
 
-Broadway will see you.`
+Not just your talent—but your heart, your softness, your way of feeling things deeply.
+
+That’s what will touch people the most.
+
+That’s what makes you unforgettable.`,
+
+`Dear Laylah,
+
+If today feels heavy, take it gently.
+
+You don’t need to prove anything.
+
+Just being you is already enough.
+
+And you are doing better than you think.`,
+
+`Dear Laylah,
+
+There is a version of you in the future living your dream.
+
+She is proud of you right now—for not giving up.
+
+For continuing, even when it’s hard.
+
+You are becoming her, step by step.`,
+
+`Dear Laylah,
+
+Some people are meant for ordinary paths.
+
+You are not one of them.
+
+Your story is bigger, brighter, and still unfolding.
+
+Trust it.`
   ];
 
+  // 📅 DAY SYSTEM
+  const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+
+  // 🔘 STATE
   const [index, setIndex] = useState(0);
   const [favorites, setFavorites] = useState<string[]>([]);
 
+  // 💾 LOAD FAVORITES
   useEffect(() => {
     const stored = localStorage.getItem("favorites");
     if (stored) setFavorites(JSON.parse(stored));
   }, []);
 
+  // 💾 SAVE FAVORITES
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+  // 🎯 CONTENT
   const content = useMemo(() => {
-    const isQuote = index % 2 === 0;
+    const isQuote = (day + index) % 2 === 0;
+
     return isQuote
-      ? { type: "Daily Quote", text: quotes[index % quotes.length] }
-      : { type: "Daily Letter", text: letters[index % letters.length] };
-  }, [index]);
+      ? { type: "Daily Quote", text: quotes[(day + index) % quotes.length] }
+      : { type: "Daily Letter", text: letters[(day + index) % letters.length] };
+  }, [index, day]);
 
   return (
     <main className="min-h-screen text-white flex flex-col items-center justify-center relative overflow-hidden px-6">
 
-      {/* SPLIT BACKGROUND */}
+      {/* 🎭 BACKGROUND SPLIT */}
       <div className="absolute inset-0 -z-30 flex">
-        <div className="w-1/2 bg-[url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30')] bg-cover bg-center" />
-        <div className="w-1/2 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')] bg-cover bg-center" />
+        <div className="w-1/2 bg-[url('https://images.unsplash.com/photo-1549921296-3a6b68c63e3b')] bg-cover bg-center" />
+        <div className="w-1/2 bg-[url('https://images.unsplash.com/photo-1501785888041-af3ef285b470')] bg-cover bg-center" />
       </div>
 
-      {/* DARK OVERLAY */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black/20 via-black/70 to-black/95" />
+      {/* 🌑 OVERLAY */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black/10 via-black/60 to-black/95" />
 
-      {/* WARM LIGHT GLOW */}
+      {/* ✨ GLOW */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,140,80,0.25),transparent_60%)]" />
 
-      {/* FLOATING PARTICLES */}
+      {/* 🌟 PARTICLES */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(25)].map((_, i) => (
           <span
             key={i}
             className="absolute w-1 h-1 bg-pink-300 rounded-full opacity-70 animate-pulse"
@@ -81,7 +127,7 @@ Broadway will see you.`
         ))}
       </div>
 
-      {/* TITLE */}
+      {/* 🎬 TITLE */}
       <div className="text-center">
         <p className="text-pink-300 italic text-lg mb-2">For</p>
 
@@ -100,17 +146,21 @@ Broadway will see you.`
         </p>
       </div>
 
-      {/* CARD */}
-      <div className="mt-10 w-full max-w-xl rounded-3xl p-[2px] bg-gradient-to-br from-pink-500/50 to-orange-400/50 animate-[pulse_4s_infinite] shadow-[0_0_60px_rgba(255,120,80,0.3)]">
+      {/* 💎 CARD */}
+      <div className="mt-10 w-full max-w-xl rounded-3xl p-[2px] bg-gradient-to-br from-pink-500/50 to-orange-400/50 shadow-[0_0_60px_rgba(255,120,80,0.3)]">
         <div className="rounded-3xl bg-black/60 backdrop-blur-xl p-8">
           <h2 className="text-pink-300 mb-4">{content.type}</h2>
           <p className="whitespace-pre-line leading-relaxed text-lg">
             {content.text}
           </p>
+
+          <p className="mt-4 text-xs opacity-60 italic">
+            Always in your corner ☕🌸
+          </p>
         </div>
       </div>
 
-      {/* BUTTONS */}
+      {/* 🔘 BUTTONS */}
       <div className="flex gap-4 mt-8">
         <button
           onClick={() => setIndex(index + 1)}
@@ -127,34 +177,10 @@ Broadway will see you.`
         </button>
       </div>
 
-      {/* SIDEBAR */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 space-y-4">
-        {["⭐", "📖", "🌿", "☕", "👑"].map((icon, i) => (
-          <div
-            key={i}
-            className="w-14 h-14 rounded-2xl bg-black/50 backdrop-blur flex items-center justify-center text-xl hover:scale-110 hover:bg-pink-500/30 transition shadow-lg"
-          >
-            {icon}
-          </div>
-        ))}
-      </div>
-
-      {/* MOOD SELECTOR */}
-      <div className="mt-12 bg-black/40 backdrop-blur-xl px-6 py-4 rounded-2xl flex gap-6 text-sm shadow-lg">
-        {["❤️ Happy", "⭐ Motivated", "☁️ Calm", "💜 Grateful"].map((mood, i) => (
-          <span
-            key={i}
-            className="opacity-80 hover:opacity-100 cursor-pointer transition"
-          >
-            {mood}
-          </span>
-        ))}
-      </div>
-
-      {/* FAVORITES */}
+      {/* ❤️ FAVORITES */}
       {favorites.length > 0 && (
         <div className="mt-10 max-w-xl w-full">
-          <h3 className="text-pink-300 text-lg mb-3">Favorites</h3>
+          <h3 className="text-pink-300 text-lg mb-3">Favorites 💖</h3>
           {favorites.map((fav, i) => (
             <p key={i} className="opacity-80 text-sm">
               {fav}
@@ -163,10 +189,11 @@ Broadway will see you.`
         </div>
       )}
 
-      {/* FOOTER */}
+      {/* 🌙 FOOTER */}
       <p className="mt-6 text-xs opacity-50">
         A new message appears every day ✨
       </p>
+
     </main>
   );
 }
