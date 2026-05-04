@@ -37,13 +37,11 @@ You are becoming the person your dreams recognize.`
   const [index, setIndex] = useState(0);
   const [favorites, setFavorites] = useState<string[]>([]);
 
-  // 💾 LOAD
   useEffect(() => {
     const stored = localStorage.getItem("favorites");
     if (stored) setFavorites(JSON.parse(stored));
   }, []);
 
-  // 💾 SAVE
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
@@ -74,12 +72,15 @@ You are becoming the person your dreams recognize.`
         textAlign: "center",
         padding: "20px",
         color: "white",
-        fontFamily: "Georgia, serif",
+
+        // 🎭 BROADWAY FONT
+        fontFamily: "'Cinzel', Georgia, serif",
+
         position: "relative",
         overflow: "hidden"
       }}
     >
-      {/* 💜 BROADWAY VIOLET BACKGROUND */}
+      {/* 💜 BACKGROUND VIOLET BROADWAY */}
       <div
         style={{
           position: "absolute",
@@ -101,25 +102,6 @@ You are becoming the person your dreams recognize.`
         }}
       />
 
-      {/* 🌟 PARTICLES */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(25)].map((_, i) => (
-          <span
-            key={i}
-            style={{
-              position: "absolute",
-              width: "4px",
-              height: "4px",
-              background: "rgba(255, 180, 255, 0.7)",
-              borderRadius: "50%",
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: 0.6
-            }}
-          />
-        ))}
-      </div>
-
       {/* 🎬 TITLE */}
       <div>
         <p style={{ color: "#ffb3ff", fontStyle: "italic" }}>For</p>
@@ -127,7 +109,7 @@ You are becoming the person your dreams recognize.`
         <h1
           style={{
             fontSize: "60px",
-            fontWeight: "bold",
+            fontWeight: "700",
             letterSpacing: "4px",
             color: "#ffd36b",
             textShadow:
@@ -137,8 +119,17 @@ You are becoming the person your dreams recognize.`
           LAYLAH
         </h1>
 
-        <p style={{ opacity: 0.8, fontSize: "14px" }}>
-          Your dreams. Your stage. Your story.
+        {/* ✨ SUBTITLE */}
+        <p
+          style={{
+            marginTop: "8px",
+            fontSize: "16px",
+            letterSpacing: "2px",
+            opacity: 0.85,
+            color: "#ffb3ff"
+          }}
+        >
+          Until Broadway ✨
         </p>
       </div>
 
